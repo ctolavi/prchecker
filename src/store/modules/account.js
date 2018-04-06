@@ -14,6 +14,7 @@ const mutations = {
   updateUser(state, response) {
     state.user.userName = response.username;
     state.user.displayName = response.display_name;
+    state.user.avatar = response.links.avatar.href;
   },
 };
 
@@ -22,7 +23,7 @@ const state = {
   user: {
     userName: '',
     displayName: '',
-    password: '',
+    avatar: '',
   },
 };
 

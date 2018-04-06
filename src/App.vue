@@ -5,25 +5,34 @@
     >
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-layout pt-3 v-if="!account.user.userName">
+      <v-layout v-if="!account.user.userName">
         <v-flex xs3 offset-xs5>
-          <v-text-field prepend-icon="person" name="login" label="Login" type="text"
+          <v-text-field class="pt-3" prepend-icon="person" name="login" label="Login" single-line type="text"
                         v-model="credentials.userName"></v-text-field>
         </v-flex>
         <v-flex xs3>
-          <v-text-field prepend-icon="lock" name="password" label="Password" id="password"
+          <v-text-field class="pt-3" prepend-icon="lock" name="password" label="Password" single-line id="password"
                         v-model="credentials.password"
                         type="password"></v-text-field>
         </v-flex>
-        <v-flex xs1>
-          <v-btn color="primary" :disabled="(!credentials.userName || !credentials.password)" @click="login(credentials)">Login</v-btn>
+        <v-flex xs1 pt-2>
+          <v-btn flat pt-3 color="primary" :disabled="(!credentials.userName || !credentials.password)"
+                 @click="login(credentials)">Login
+          </v-btn>
         </v-flex>
       </v-layout>
-      <v-layout pt-3 v-if="account.user.userName">
-        <v-flex xs2 offset-xs10>
-          {{account.user.displayName}}
-        </v-flex>
-      </v-layout>
+      <v-toolbar-items v-if="account.user.userName" class="hidden-sm-and-down pt-2 pd-2 ">
+        <v-avatar class="mr-2">
+          <img :src="account.user.avatar" alt="avatar">
+        </v-avatar>
+        <v-select
+          items="logout"
+          overflow
+          :label="account.user.displayName"
+          target="#dropdown-example"
+          class="username"
+        ></v-select>
+      </v-toolbar-items>
     </v-toolbar>
     <v-content>
       <router-view/>
@@ -61,5 +70,8 @@
   .copyleft {
     display: inline-block;
     transform: rotate(180deg);
+  }
+  .username {
+    width: 220px;
   }
 </style>
