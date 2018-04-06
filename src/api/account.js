@@ -6,7 +6,7 @@ export default {
   login(credentials, callback) {
     const encode = window.btoa(`${credentials.userName}:${credentials.password}`);
     axios.defaults.headers.common.Authorization = `Basic ${encode}`;
-    axios.get(`/users/${credentials.userName}`).then((response) => {
+    return axios.get(`/users/${credentials.userName}`).then((response) => {
       if (response.status === 200) {
         callback(response.data);
       }
